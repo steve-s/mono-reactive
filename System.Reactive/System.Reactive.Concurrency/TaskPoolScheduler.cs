@@ -51,10 +51,9 @@ namespace System.Reactive.Concurrency
 			var cancel = new CancellationTokenSource ();
 			var dis = new MultipleAssignmentDisposable ();			
 			dis.Disposable = new CancellationDisposable(cancel); ;
-			Task task = null;
-			task = factory.StartNew<Unit> (() => {
+			factory.StartNew<Unit> (() => {
 				Thread.Sleep (Scheduler.Normalize (dueTime));
-				if (task != null && !task.IsCanceled && !cancel.IsCancellationRequested)
+				if (!cancel.IsCancellationRequested)
 					dis.Disposable = action (this, state);
 				return Unit.Default;
 				}, cancel.Token);
