@@ -11,9 +11,9 @@ namespace System.Reactive.Linq
 		public static IObservable<TSource> Repeat<TSource> (this IObservable<TSource> source, int repeatCount)
 		{
 			if (source == null)
-				throw new ArgumentException("source");
+				throw new ArgumentException ("source");
 			if (repeatCount < 0)
-				throw new ArgumentException("repeatCount");
+				throw new ArgumentException ("repeatCount");
 
 			return RepeatInfinitely (source).Take (repeatCount).Concat ();
 		}
