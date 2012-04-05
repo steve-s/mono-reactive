@@ -49,12 +49,12 @@ namespace System.Reactive.Concurrency
 #endif
 		{
 			var cancel = new CancellationTokenSource ();
-			var dis = new MultipleAssignmentDisposable ();
-			dis.Disposable = new CancellationDisposable (cancel);
+			var dis = new MultipleAssignmentDisposable ();			
+			dis.Disposable = new CancellationDisposable(cancel); ;
 			Task task = null;
 			task = factory.StartNew<Unit> (() => {
 				Thread.Sleep (Scheduler.Normalize (dueTime));
-				if (!task.IsCanceled)
+				if (task != null && !task.IsCanceled && !cancel.IsCancellationRequested)
 					dis.Disposable = action (this, state);
 				return Unit.Default;
 				}, cancel.Token);

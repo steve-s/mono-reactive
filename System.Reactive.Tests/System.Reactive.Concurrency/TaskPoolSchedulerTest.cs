@@ -33,10 +33,13 @@ namespace System.Reactive.Concurrency.Tests
 			var l = new List<int> ();
 			var dis = new CompositeDisposable ();
 			try {
-				dis.Add (s.Schedule (() => { Thread.Sleep (1200); l.Add (1); }));
-				dis.Add (s.Schedule (() => { Thread.Sleep (800); l.Add (2); }));
+				// If the tasks do not run long enough, the (Task) scheduler will not use separate Threads, 
+				// therefore Thread.Sleep(x) will block not only current task, but also tasks scheduled to run 
+				// in the same Thread
+				dis.Add (s.Schedule (() => { Thread.Sleep (2400); l.Add (1); }));
+				dis.Add (s.Schedule (() => { Thread.Sleep (1600); l.Add (2); }));
 				dis.Add (s.Schedule (() => { Thread.Sleep (50); l.Add (3); }));
-				Thread.Sleep (1500);
+				Thread.Sleep (2500);
 				Assert.AreEqual (new int [] {3, 2, 1}, l.ToArray (), "#1");
 			} finally {
 				dis.Dispose ();
