@@ -2313,10 +2313,16 @@ namespace System.Reactive.Linq
 						fire = true;
 						var slotDueTime = dueTime - (scheduler.Now - last);
 						var ddis = new SingleAssignmentDisposable ();
-						ddis.Disposable = scheduler.Schedule (slotDueTime, () => { last = scheduler.Now; sub.OnNext (value); fire = false; value = default (TSource); ddis.Dispose ();});
+						ddis.Disposable = scheduler.Schedule (slotDueTime, () => {
+							last = scheduler.Now; 
+							sub.OnNext (value); 
+							fire = false; 
+							value = default (TSource); 
+							ddis.Dispose ();
+						});
 					}
 				}
-			}, ex => sub.OnError (ex), () => sub.OnCompleted ()));
+			}, sub.OnError, sub.OnCompleted));
 			// ----
 			}, scheduler);
 		}

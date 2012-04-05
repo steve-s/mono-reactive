@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -42,16 +42,10 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <Folder Include="System\" />
-    <Folder Include="System.Reactive\" />
-    <Folder Include="System.Reactive.Concurrency\" />
-    <Folder Include="System.Reactive.Disposables\" />
-    <Folder Include="System.Reactive.Linq\" />
-    <Folder Include="System.Reactive.Subjects\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Compile Include="Mono.Reactive.Testing\TestSchedulerTest.cs" />
+    <Compile Include="System.Reactive.Linq\ObservableRx2Tests.cs" />
     <Compile Include="System\MyException.cs" />
     <Compile Include="System\ErrorScheduler.cs" />
     <Compile Include="System\ObservableExtensionTest.cs" />
